@@ -1,23 +1,16 @@
+from email.mime import base
 from time import perf_counter
 import requests
 from ariadne import convert_kwargs_to_snake_case
 
 
-def make_api_call(page):
-    try:
-        url = f"https://swapi.dev/api/people/?page={page}"
-    except Exception as error:
-        print(error)
-        return False
-
-    response = requests.get(url)
-    result = response.json()["results"]
-    return result
-
+base_url = "https://swapi.dev/api/people/"
 
 def resolve_persons(obj, info, page):
     try:
-        result = make_api_call(page)
+        url = base_url + f"?page={page}"
+        response = requests.get(url)
+        result = response.json()["results"]
 
         persons = [person for person in result]
         payload = {
@@ -34,7 +27,7 @@ def resolve_persons(obj, info, page):
 @convert_kwargs_to_snake_case
 def resolve_person(obj, info, person_name):
     try:
-        url = f"https://swapi.dev/api/people//?search={person_name}"
+        url = base_url + f"?search={person_name}"
 
         response = requests.get(url)
         person = response.json()["results"]
