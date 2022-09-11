@@ -8,6 +8,7 @@ from api.queries import resolve_persons, resolve_person
 
 query = ObjectType("Query")
 
+#   Binding resolver to schema
 query.set_field("persons", resolve_persons)
 query.set_field("person", resolve_person)
 
@@ -16,6 +17,8 @@ schema = make_executable_schema(
     type_defs, query, snake_case_fallback_resolvers
 )
 
+
+#GraphQL endpoints
 
 @app.route("/graphql", methods=["GET"])
 def graphql_playground():
