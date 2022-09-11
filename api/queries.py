@@ -34,6 +34,15 @@ def resolve_persons(obj, info, page):
 
 @convert_kwargs_to_snake_case
 def resolve_person(obj, info, person_name):
+    """
+        A REST API wrapper/resolver that returns a person object .
+        Parameters : obj (a value returned by a parent resolver) 
+                    info (contains any context information that the GraphQL server provided)
+                    person_name (name value for REST API query) 
+
+        Returns : payload (of a person object if successful and error if else)
+    """
+
     try:
         url = base_url + f"?search={person_name}"
 
