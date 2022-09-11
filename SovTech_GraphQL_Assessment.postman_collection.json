@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "984296db-1419-44f0-b394-c7e6b1d5d1df",
+		"name": "SovTech_GraphQL_Assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20677030"
+	},
+	"item": [
+		{
+			"name": "mutation_create_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"value contains data object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.be.an('object')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation newUser {\n    createUser(name:\"Mike Akanje\", password:\"12345678#\") {\n        success\n        errors\n        user {\n            name\n            password\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "A mutation resolver that creates a new user"
+			},
+			"response": [
+				{
+					"name": "mutation_create_user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation newUser {\n    createUser(name:\"Mike Akanje\", password:\"12345678#\") {\n        success\n        errors\n        user {\n            name\n            password\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.2 Python/3.7.5"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 16:58:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "257"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"createUser\": {\n            \"errors\": null,\n            \"success\": true,\n            \"user\": {\n                \"name\": \"Mike Akanje\",\n                \"password\": \"sha256$0spnbJ2SGuYE6CXg$a81909c082189a1173d89ba29d164c8a39a2eb328a762f0cbeb3526ae2a31d36\"\n            }\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "mutation_login_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"value contains data object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.loginUser.token.token).to.be.an('string')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation login {\n  loginUser(username:\"Mike Akanje\", password:\"12345678#\") {\n    success\n    errors\n    token { token }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "A mutation resolver that logs in a user generating a token which expires after 5days(on purpose)"
+			},
+			"response": [
+				{
+					"name": "mutation_login_user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation login {\n  loginUser(username:\"Mike Akanje\", password:\"12345678#\") {\n    success\n    errors\n    token { token }\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.2 Python/3.7.5"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 17:06:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "308"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"loginUser\": {\n            \"errors\": null,\n            \"success\": true,\n            \"token\": {\n                \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxNGU5MDY3NC04OWE4LTQyNjQtOGZhZi1iM2I3NDNlODFjNzciLCJleHAiOjE2NjMzNDgwMTF9.-ANxzyEsx4Xw8Zc0r6P7PfNvNC6uvx6Y0x6xUYpZpkw\"\n            }\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "query_search_person_by_name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"value contains data object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.person).to.be.an('object')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "    query fetchPerson {\n        person(personName: \"Lando Calrissian\") {\n            success\n            errors\n            person { name height mass gender homeworld }\n        }\n    }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "A query resolver to return the graphql search arguement \"personName\""
+			},
+			"response": [
+				{
+					"name": "query_search_person_by_name",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "    query fetchPerson {\n        person(personName: \"Lando Calrissian\") {\n            success\n            errors\n            person { name height mass gender homeworld }\n        }\n    }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.2 Python/3.7.5"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 17:09:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "279"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"person\": {\n            \"errors\": null,\n            \"person\": {\n                \"gender\": \"male\",\n                \"height\": \"177\",\n                \"homeworld\": \"https://swapi.dev/api/planets/30/\",\n                \"mass\": \"79\",\n                \"name\": \"Lando Calrissian\"\n            },\n            \"success\": true\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "query_get_people",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"value contains data object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.persons).to.be.an('object')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "    query fetchAllPersons {\n        persons(page: \"4\") {\n            success\n            errors\n            persons {\n            name\n            height\n            mass\n            gender\n            homeworld\n            }\n        }\n    }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/graphql",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": "A query resolver to return the graphql list of persons and their attributes"
+			},
+			"response": [
+				{
+					"name": "query_get_people",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "    query fetchAllPersons {\n        persons(page: \"4\") {\n            success\n            errors\n            persons {\n            name\n            height\n            mass\n            gender\n            homeworld\n            }\n        }\n    }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.2 Python/3.7.5"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 Sep 2022 17:10:52 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2054"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"persons\": {\n            \"errors\": null,\n            \"persons\": [\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"193\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/28/\",\n                    \"mass\": \"89\",\n                    \"name\": \"Qui-Gon Jinn\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"191\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/18/\",\n                    \"mass\": \"90\",\n                    \"name\": \"Nute Gunray\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"170\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/9/\",\n                    \"mass\": \"unknown\",\n                    \"name\": \"Finis Valorum\"\n                },\n                {\n                    \"gender\": \"female\",\n                    \"height\": \"185\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/8/\",\n                    \"mass\": \"45\",\n                    \"name\": \"Padmé Amidala\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"196\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/8/\",\n                    \"mass\": \"66\",\n                    \"name\": \"Jar Jar Binks\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"224\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/8/\",\n                    \"mass\": \"82\",\n                    \"name\": \"Roos Tarpals\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"206\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/8/\",\n                    \"mass\": \"unknown\",\n                    \"name\": \"Rugor Nass\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"183\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/8/\",\n                    \"mass\": \"unknown\",\n                    \"name\": \"Ric Olié\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"137\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/34/\",\n                    \"mass\": \"unknown\",\n                    \"name\": \"Watto\"\n                },\n                {\n                    \"gender\": \"male\",\n                    \"height\": \"112\",\n                    \"homeworld\": \"https://swapi.dev/api/planets/35/\",\n                    \"mass\": \"40\",\n                    \"name\": \"Sebulba\"\n                }\n            ],\n            \"success\": true\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "hello_route",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hello\": \"HEllo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000"
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
