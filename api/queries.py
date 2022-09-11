@@ -56,7 +56,7 @@ def resolve_person(obj, info, person_name):
     except AttributeError:  # person not found
         payload = {
             "success": False,
-            "errors": [f"Person matching name  not found"]
+            "errors": [f"Person matching name {person_name} not found"]
         }
 
     return payload
