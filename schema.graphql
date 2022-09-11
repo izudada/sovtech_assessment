@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Person {
@@ -10,10 +11,32 @@ type Person {
     homeworld: String!
 }
 
+type User {
+    name: String!
+    password: String!
+}
+
+type Token {
+    name: String!
+    token: String!
+}
+
 type PersonResult {
     success: Boolean!
     errors: [String]
     person: Person
+}
+
+type UserResult {
+    success: Boolean!
+    errors: [String]
+    user: User
+}
+
+type UserToken {
+    success: Boolean!
+    errors: [String]
+    token: Token
 }
 
 type People {
@@ -25,4 +48,9 @@ type People {
 type Query {
     persons(page: String) : People!
     person(personName: String!): PersonResult!
+}
+
+type Mutation {
+    createUser(name: String!, password: String!): UserResult!
+    loginUser(username: String!, password: String!): UserToken!
 }
