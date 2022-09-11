@@ -1,5 +1,3 @@
-from email.mime import base
-from time import perf_counter
 import requests
 from ariadne import convert_kwargs_to_snake_case
 
@@ -7,6 +5,16 @@ from ariadne import convert_kwargs_to_snake_case
 base_url = "https://swapi.dev/api/people/"
 
 def resolve_persons(obj, info, page):
+    """
+        A REST API wrapper/resolver that returns list of
+        persons or people.
+        Parameters : obj (a value returned by a parent resolver) 
+                    info (contains any context information that the GraphQL server provided)
+                    page (pagination for the REST API) 
+
+        Returns : payload (of persons if successful and error if else)
+
+    """
     try:
         url = base_url + f"?page={page}"
         response = requests.get(url)
