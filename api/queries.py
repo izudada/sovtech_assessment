@@ -1,8 +1,30 @@
+from urllib import request
 import requests
 from ariadne import convert_kwargs_to_snake_case
+from flask import jsonify, request as rq
+import jwt
+from api import app, Users
 
 
 base_url = "https://swapi.dev/api/people/"
+
+
+def token_required():
+    if 'Authorization' in rq.headers:
+        main_token = rq.headers["Authorization"].split(' ')
+        jwt_token = main_token[1]
+
+    if not jwt_token:
+        return False
+    try:
+        data = jwt.decode(jwt_token, app.config['SECRET_KEY'], algorithms=["HS256"])
+        current_user = Users.query.filter_by(public_id=data['public_id']).first()
+    except Exception as error:
+        print(error)
+        return False
+
+    return current_user
+    
 
 def resolve_persons(obj, info, page):
     """
@@ -15,6 +37,13 @@ def resolve_persons(obj, info, page):
         Returns : payload (of persons if successful and error if else)
 
     """
+    auth = token_required()
+    if not auth:
+        payload = {
+            "success": False,
+            "errors": [str(auth)]
+        }
+
     try:
         url = base_url + f"?page={page}"
         response = requests.get(url)
@@ -42,7 +71,13 @@ def resolve_person(obj, info, person_name):
 
         Returns : payload (of a person object if successful and error if else)
     """
-
+    print("Anthony")
+    auth = token_required()
+    if not auth:
+        payload = {
+        "success": False,
+        "errors": [str(auth)]
+    }
     try:
         url = base_url + f"?search={person_name}"
 
